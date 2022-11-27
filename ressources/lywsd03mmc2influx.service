@@ -1,0 +1,11 @@
+[Unit]
+Description=Lywsd03mmc to influxDB relay
+After=bluetooth.service influxdb.service
+Requires=bluetooth.service influxdb.service
+
+[Service]
+ExecStart=/usr/local/bin/lywsd03mmc2influx --sensors /etc/lywsd03mmc2influx_mapping.csv
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

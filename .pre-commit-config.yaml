@@ -1,0 +1,42 @@
+---
+# https://pre-commit.com/
+# Install pre-commit for your current user:
+#   pip3 install --user pre-commit
+#
+# and then, in the git repo:
+#   pre-commit install
+
+repos:
+  - repo: https://github.com/jphppd/pre-commit-hooks.git
+    rev: 9f7852b749799d8ef3bcc96acc9678c917d9f1d5
+    hooks:
+      - id: git-check-mailmap
+      - id: git-forbid-binary
+      - id: git-check
+      - id: git-dirty
+      - id: git-check-added-large-files
+      - id: git-check-merge-conflict
+      - id: git-commit-msg
+      - id: generic-check-byte-order-marker
+      - id: generic-check-case-conflict
+      - id: generic-check-executables-have-shebangs
+      - id: generic-check-symlinks
+      - id: generic-check-vcs-permalinks
+      - id: generic-detect-private-key
+      - id: generic-end-of-file-fixer
+      - id: generic-trailing-whitespace
+      - id: generic-crlf-forbid
+      - id: generic-crlf-remove
+      - id: generic-tabs-forbid
+      - id: generic-tabs-remove
+      - id: generic-nbsp-forbid
+      - id: generic-nbsp-remove
+      - id: generic-en-dashes-forbid
+      - id: generic-en-dashes-remove
+      - id: rust-outdated
+      - id: rust-audit
+      - id: rust-check
+      - id: rust-clippy
+      - id: rust-fix
+      - id: rust-fmt
+      - id: toml-check-syntax
