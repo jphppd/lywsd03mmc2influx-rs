@@ -22,6 +22,10 @@ fn setup_influx_connection(app_config: &AppConfig) -> InfluxDbProtectedConnector
         true => None,
         false => {
             let influx_client = Client::new(&app_config.influx_conn, &app_config.influx_database);
+            let influx_client = match &app_config.influx_credentials {
+                Some((username, password)) => influx_client.with_auth(username, password),
+                _ => influx_client,
+            };
             Some(Arc::new(Mutex::new(influx_client)))
         }
     }

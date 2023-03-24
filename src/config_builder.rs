@@ -67,6 +67,10 @@ struct Cli {
     port: u16,
     #[arg(short, long, action=ArgAction::SetTrue, help="TLS connection flag (present/absent)")]
     tls: bool,
+    #[arg(short, long, help = "Influxdb username")]
+    username: Option<String>,
+    #[arg(short = 'w', long, help = "Influxdb password")]
+    password: Option<String>,
     #[arg(
         short,
         long,
@@ -116,6 +120,8 @@ pub struct AppConfig {
     pub influx_database: String,
     /// InfluxDB measurement name.
     pub influx_measurement: String,
+    /// InfluxDB username and password
+    pub influx_credentials: Option<(String, String)>,
     /// Mapping between the addresses of the sensors and their locations.
     pub sensors_names: SensorsMapping,
     /// Be verbose.
@@ -133,6 +139,13 @@ impl AppConfig {
             influx_conn: cli_args.get_influx_conn_string(),
             influx_database: cli_args.database,
             influx_measurement: cli_args.measurement,
+            influx_credentials: if let (Some(username), Some(password)) =
+                (cli_args.username, cli_args.password)
+            {
+                Some((username, password))
+            } else {
+                None
+            },
             sensors_names: get_mapping_from_input(&cli_args.sensors)?,
             be_verbose: cli_args.verbose,
             dry_run: cli_args.dry_run,
